@@ -10,8 +10,7 @@ import java.sql.DriverManager
 
 class CreateDatabaseTask extends DefaultTask {
 
-
-    public static final String CONFIGURATION_NAME = 'driver'
+    static final String CONFIGURATION_NAME = 'driver'
 
     @TaskAction
     def createDatabase() {
