@@ -14,7 +14,7 @@ class CreateDatabaseTask extends DefaultTask {
     def createDatabase() {
         registerDriver(project.database.driver, project.database.configurationName)
 //        getSqlInstance()
-        executeSql()
+        executeSqlFile()
 //        sqlInstance.close()
     }
 
@@ -33,15 +33,19 @@ class CreateDatabaseTask extends DefaultTask {
         sql
     }
 
-    def executeSql() {
+    def executeSqlFile() {
         project.database.sqlFiles.each {
             File file ->
-                file.text.split(';').each {
-                    def sqlStatement = it.trim()
-                    if (!sqlStatement.isEmpty()) {
-                        println "${it.trim()};"
-                    }
-                }
+                executeSqlStatement(file)
+        }
+    }
+
+    def executeSqlStatement(File file) {
+        file.text.split(';').each {
+            def sqlStatement = it.trim()
+            if (!sqlStatement.isEmpty()) {
+                println "${it.trim()};"
+            }
         }
     }
 
