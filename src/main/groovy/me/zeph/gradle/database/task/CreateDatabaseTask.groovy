@@ -13,22 +13,9 @@ class CreateDatabaseTask extends DefaultTask {
     @TaskAction
     def createDatabase() {
         registerDriver(project.database.driver, project.database.configurationName)
-
-        def sql = Sql.newInstance(project.database.url,
-                project.database.username,
-                project.database.password,
-                project.database.driver)
-
-        println sql.connection.catalog
-
-        project.database.sqlFiles.each {
-
-        }
-
-        project.database.sqls.each {
-            sql.execute(it)
-            println it
-        }
+//        getSqlInstance()
+        executeSql()
+//        sqlInstance.close()
     }
 
     def registerDriver(driverName, configurationName) {
@@ -36,4 +23,26 @@ class CreateDatabaseTask extends DefaultTask {
         project.configurations[configurationName].each { File file -> loader.addURL(file.toURL()) }
         DriverManager.registerDriver(loader.loadClass(driverName).newInstance() as Driver)
     }
+
+    def getSqlInstance() {
+        def sql = Sql.newInstance(project.database.url,
+                project.database.username,
+                project.database.password,
+                project.database.driver)
+        println "connect to database ${sqlInstance.connection.catalog}"
+        sql
+    }
+
+    def executeSql() {
+        project.database.sqlFiles.each {
+            File file ->
+                file.text.split(';').each {
+                    def sqlStatement = it.trim()
+                    if (!sqlStatement.isEmpty()) {
+                        println "${it.trim()};"
+                    }
+                }
+        }
+    }
+
 }
