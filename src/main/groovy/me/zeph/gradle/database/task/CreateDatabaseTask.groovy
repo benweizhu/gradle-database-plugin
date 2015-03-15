@@ -10,11 +10,9 @@ import java.sql.DriverManager
 
 class CreateDatabaseTask extends DefaultTask {
 
-    static final String CONFIGURATION_NAME = 'driver'
-
     @TaskAction
     def createDatabase() {
-        registerDriver(project.database.driver)
+        registerDriver(project.database.driver, project.database.configurationName)
 
         def sql = Sql.newInstance(project.database.url,
                 project.database.username,
@@ -28,9 +26,9 @@ class CreateDatabaseTask extends DefaultTask {
         }
     }
 
-    def registerDriver(driverName) {
+    def registerDriver(driverName, configurationName) {
         URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader
-        project.configurations[CONFIGURATION_NAME].each { File file -> loader.addURL(file.toURL()) }
+        project.configurations[configurationName].each { File file -> loader.addURL(file.toURL()) }
         DriverManager.registerDriver(loader.loadClass(driverName).newInstance() as Driver)
     }
 }

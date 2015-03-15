@@ -6,13 +6,13 @@ repositories {
 }
 
 configurations {
-    driver
+    database
 }
 
 dependencies {
     compile gradleApi()
     compile localGroovy()
-    driver 'mysql:mysql-connector-java:5.1.18'
+    database 'mysql:mysql-connector-java:5.1.18'
 }
 
 task wrapper(type: Wrapper) {
@@ -44,6 +44,7 @@ database {
     password = ''
     driver = 'com.mysql.jdbc.Driver'
     sqlFiles = ['a', 'b']
+    configurationName = 'database'
 }
 
 task copyLibs(type: Copy) {

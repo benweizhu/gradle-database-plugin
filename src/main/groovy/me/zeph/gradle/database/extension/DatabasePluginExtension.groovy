@@ -7,4 +7,5 @@ class DatabasePluginExtension {
     def password
     def driver
     def sqlFiles
+    def configurationName
 }
