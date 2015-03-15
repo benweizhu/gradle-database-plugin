@@ -31,7 +31,7 @@ class CreateDatabaseTask extends DefaultTask {
 
     def registerDriver(driverName) {
         URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader
-        project.configurations[CONFIGURATION_NAME].each { File file -> loader.addURL(URI.toURL(file.toURI())) }
+        project.configurations[CONFIGURATION_NAME].each { File file -> loader.addURL(file.toURL()) }
         DriverManager.registerDriver(loader.loadClass(driverName).newInstance() as Driver)
     }
 }
