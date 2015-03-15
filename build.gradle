@@ -17,3 +17,23 @@ idea.project.ipr {
                 .mapping.@vcs = 'Git'
     }
 }
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath fileTree(dir: 'libs', include: '*.jar')
+    }
+}
+
+apply plugin: 'me.zeph.database'
+
+database {
+    message = 'database'
+}
+
+task copyLibs(type: Copy) {
+    from 'build/libs'
+    into 'libs'
+}
