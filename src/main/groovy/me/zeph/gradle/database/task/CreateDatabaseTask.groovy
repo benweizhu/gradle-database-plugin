@@ -24,6 +24,11 @@ class CreateDatabaseTask extends DefaultTask {
         project.database.sqlFiles.each {
 
         }
+
+        project.database.sqls.each {
+            sql.execute(it)
+            println it
+        }
     }
 
     def registerDriver(driverName, configurationName) {

@@ -44,6 +44,12 @@ database {
     password = ''
     driver = 'com.mysql.jdbc.Driver'
     sqlFiles = ['a', 'b']
+    sqls = ['DROP TABLE RELT_KIT;',
+            'CREATE TABLE RELT_KIT (\n' +
+            '  ID   INT         NOT NULL AUTO_INCREMENT,\n' +
+            '  NAME VARCHAR(20) NOT NULL,\n' +
+            '  CONSTRAINT RELT_KIT_PK PRIMARY KEY (ID)\n' +
+            ');']
     configurationName = 'database'
 }
 
