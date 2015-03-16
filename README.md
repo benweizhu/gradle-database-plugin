@@ -1,6 +1,6 @@
-# gradle-plugin-database
+# A Gradle plugin for sql execute
 
-###how to use
+###How to use
 
 ```groovy
 apply plugin: 'me.zeph.database'
