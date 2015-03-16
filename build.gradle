@@ -1,6 +1,8 @@
 apply plugin: 'idea'
 apply plugin: 'groovy'
+apply plugin: 'maven'
 
+group = 'me.zeph'
 version = 0.1
 
 repositories {
@@ -22,6 +24,21 @@ idea.project.ipr {
                 .find { it.@name == 'VcsDirectoryMappings' }
                 .mapping.@vcs = 'Git'
     }
+}
+
+task writeNewPom << {
+    pom {
+        project {
+            inceptionYear '2015'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("$buildDir/newpom.xml")
 }
 
 buildscript {
