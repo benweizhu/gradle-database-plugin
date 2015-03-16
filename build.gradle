@@ -1,6 +1,8 @@
 apply plugin: 'idea'
 apply plugin: 'groovy'
 
+version = 0.1
+
 repositories {
     mavenCentral()
 }
