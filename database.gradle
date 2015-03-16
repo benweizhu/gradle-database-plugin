@@ -1,0 +1,23 @@
+configurations {
+    database
+}
+
+dependencies {
+    database 'mysql:mysql-connector-java:5.1.18'
+}
+
+apply plugin: 'me.zeph.database'
+
+database {
+    url = 'jdbc:mysql://localhost:3306/relations'
+    username = 'root'
+    password = ''
+    driver = 'com.mysql.jdbc.Driver'
+    configurationName = 'database'
+    sqlFiles = files('config/database/drop_table.sql')
+}
+
+task copyLibs(type: Copy) {
+    from 'build/libs'
+    into 'libs'
+}
