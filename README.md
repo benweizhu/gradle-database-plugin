@@ -23,4 +23,4 @@ database {
 }
 ```
 
-**Not available yet**
+**Not available in remote repository**
