@@ -13,15 +13,12 @@ class CreateDatabaseTask extends DefaultTask {
     @TaskAction
     def createDatabase() {
         registerDriver(project.database.driver, project.database.configurationName)
-//        getSqlInstance()
-        executeSqlFile()
-//        sqlInstance.close()
-    }
 
-    def registerDriver(driverName, configurationName) {
-        URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader
-        project.configurations[configurationName].each { File file -> loader.addURL(file.toURL()) }
-        DriverManager.registerDriver(loader.loadClass(driverName).newInstance() as Driver)
+        def sql = getSqlInstance()
+
+        executeSqlFile(sql)
+
+        sql.close()
     }
 
     def getSqlInstance() {
@@ -29,24 +26,35 @@ class CreateDatabaseTask extends DefaultTask {
                 project.database.username,
                 project.database.password,
                 project.database.driver)
-        println "connect to database ${sqlInstance.connection.catalog}"
+        println sql.connection.catalog
         sql
     }
 
-    def executeSqlFile() {
+    def executeSqlFile(sql) {
         project.database.sqlFiles.each {
             File file ->
-                executeSqlStatement(file)
+                executeSqlStatement(file, sql)
         }
     }
 
-    def executeSqlStatement(File file) {
+    def executeSqlStatement(File file, sql) {
         file.text.split(';').each {
             def sqlStatement = it.trim()
             if (!sqlStatement.isEmpty()) {
-                println "${it.trim()};"
+                try {
+                    sql.execute(sqlStatement)
+                    println "'${sqlStatement}' execute success"
+                } catch (Exception e) {
+                    println "'${sqlStatement}' execute failure"
+                }
             }
         }
     }
 
+
+    def registerDriver(driverName, configurationName) {
+        URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader
+        project.configurations[configurationName].each { File file -> loader.addURL(file.toURL()) }
+        DriverManager.registerDriver(loader.loadClass(driverName).newInstance() as Driver)
+    }
 }
