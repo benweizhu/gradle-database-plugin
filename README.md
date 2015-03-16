@@ -2,6 +2,7 @@
 
 ###how to use
 
+```groovy
 apply plugin: 'me.zeph.database'
 
 configurations {
@@ -20,3 +21,4 @@ database {
     configurationName = 'database'
     sqlFiles = files('config/database/drop_table.sql')
 }
+```
