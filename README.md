@@ -3,6 +3,17 @@
 ###How to use
 
 ```groovy
+buildscript {
+    repositories {
+        maven {
+            url "http://dl.bintray.com/benweizhu/maven"
+        }
+    }
+    dependencies {
+        classpath 'me.zeph:gradle-database-plugin:0.0.1'
+    }
+}
+
 apply plugin: 'me.zeph.database'
 
 configurations {
@@ -26,5 +37,3 @@ database {
 ```groovy
 gradlew createDB
 ```
-
-**Not available in remote repository**
