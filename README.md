@@ -1,5 +1,7 @@
 # A Gradle plugin for sql execute
 
+[![Build Status](https://travis-ci.org/benweizhu/gradle-plugin-database.svg?branch=master)](https://travis-ci.org/benweizhu/gradle-plugin-database)
+
 When dealing with the integration test, in most cases, you may need to interact with database, task like running sql statement could be very useful.
 
 What you see right now is a Gradle plugin which provide you a task to run SQL files in order.
