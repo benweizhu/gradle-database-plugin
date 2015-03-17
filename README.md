@@ -23,4 +23,8 @@ database {
 }
 ```
 
+```groovy
+gradlew createDB
+```
+
 **Not available in remote repository**
