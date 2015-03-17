@@ -1,5 +1,11 @@
 # A Gradle plugin for sql execute
 
+When dealing with the integration test, in most cases, you may need to interact with database, task like running sql statement could be very useful.
+
+What you see right now is a Gradle plugin which provide you a task to run SQL files in order.
+
+You can make your integrationTest depends on createDB task, so you can redeploy the database everytime before integrationTest running. This gives you a chance to have a clean database environment.
+
 ###How to use
 
 ```groovy
