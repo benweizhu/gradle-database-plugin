@@ -34,9 +34,21 @@ database {
     password = ''
     driver = 'com.mysql.jdbc.Driver'
     configurationName = 'database'
-    sqlFiles = files('config/database/drop_table.sql')
+    sqlFiles = files('config/database/my_sql.sql')
 }
 ```
+
+####my_sql.sql, use semicolon ';' to isolate each sql statement
+
+```sql
+DROP TABLE MY_TABLE;
+CREATE TABLE MY_TABLE (
+  ID   INT         NOT NULL AUTO_INCREMENT,
+  NAME VARCHAR(20) NOT NULL,
+  CONSTRAINT RELT_KIT_PK PRIMARY KEY (ID)
+);
+```
+
 
 ```groovy
 gradle createDB
