@@ -11,9 +11,7 @@ You can make your integrationTest depends on createDB task, so you can redeploy 
 ```groovy
 buildscript {
     repositories {
-        maven {
-            url "http://dl.bintray.com/benweizhu/maven"
-        }
+        jcenter()
     }
     dependencies {
         classpath 'me.zeph:gradle-database-plugin:0.0.1'
