@@ -38,7 +38,7 @@ database {
 }
 ```
 
-**my_sql.sql, use semicolon ';' to isolate each sql statement**
+my_sql.sql, use semicolon ';' to isolate each sql statement
 
 ```sql
 DROP TABLE MY_TABLE;
