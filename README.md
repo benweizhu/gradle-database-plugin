@@ -41,5 +41,5 @@ database {
 ```
 
 ```groovy
-gradlew createDB
+gradle createDB
 ```
