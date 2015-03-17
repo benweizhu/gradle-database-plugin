@@ -2,9 +2,6 @@ apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
-group = 'me.zeph'
-version = 0.1
-
 repositories {
     mavenCentral()
 }
@@ -47,6 +44,32 @@ buildscript {
     }
     dependencies {
         classpath fileTree(dir: 'libs', include: '*.jar')
+    }
+}
+
+apply plugin: 'maven-publish'
+
+group = 'me.zeph'
+version = '0.0.1'
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "$buildDir/repo"
+        }
     }
 }
 
