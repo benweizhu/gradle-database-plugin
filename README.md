@@ -6,7 +6,7 @@ When dealing with the integration test, in most cases, you may need to interact 
 
 What you see right now is a Gradle plugin which provides you a task to run SQL files in order.
 
-You can make your integrationTest depends on createDB task, so you can redeploy the database everytime before integrationTest running. This gives you a chance to have a clean database environment.
+You can make your integrationTest depends on createDB task, so you can redeploy the database every time before integrationTest running. This gives you a chance to have a clean database environment.
 
 ###How to use
 
