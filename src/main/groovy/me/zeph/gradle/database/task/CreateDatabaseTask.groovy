@@ -1,5 +1,4 @@
 package me.zeph.gradle.database.task
-
 import groovy.sql.Sql
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
@@ -7,16 +6,17 @@ import org.gradle.api.tasks.TaskAction
 import java.sql.Driver
 import java.sql.DriverManager
 
-
 class CreateDatabaseTask extends DefaultTask {
 
     @TaskAction
     def createDatabase() {
         registerDriver(project.database.driver, project.database.configurationName)
 
-        def createDatabaseSqlInstance = getCreateDatabaseSqlInstance()
-        executeCreateDatabaseSql(createDatabaseSqlInstance)
-        createDatabaseSqlInstance.close()
+        if (project.database.databaseName != null && project.database.databaseName.length() > 0) {
+            def createDatabaseSqlInstance = getCreateDatabaseSqlInstance()
+            executeCreateDatabaseSql(createDatabaseSqlInstance)
+            createDatabaseSqlInstance.close()
+        }
 
         def sqlExecuteSqlInstance = getSqlExecuteSqlInstance()
         executeSqlFile(sqlExecuteSqlInstance)
@@ -39,7 +39,7 @@ class CreateDatabaseTask extends DefaultTask {
             println createDatabase
             sqlInstance.executeUpdate(createDatabase)
             println "'${createDatabase}' execute success"
-        }catch (Exception e){
+        } catch (Exception e) {
             println "'${createDatabase}' execute failure"
         }
     }
