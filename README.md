@@ -42,7 +42,7 @@ database {
 ```
 
 ###Version 0.0.2 is coming
-Version 0.0.2 support 'drop and create database your_database_name' on demand before execute sql file 
+Version 0.0.2 supports 'drop and create database your_database_name' on demand before execute sql file 
 
 ###Sql file
 

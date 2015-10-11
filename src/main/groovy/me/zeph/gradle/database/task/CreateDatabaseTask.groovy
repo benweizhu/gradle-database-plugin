@@ -1,4 +1,5 @@
 package me.zeph.gradle.database.task
+
 import groovy.sql.Sql
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
@@ -13,43 +14,29 @@ class CreateDatabaseTask extends DefaultTask {
         registerDriver(project.database.driver, project.database.configurationName)
 
         if (project.database.databaseName != null && project.database.databaseName.length() > 0) {
-            def createDatabaseSqlInstance = getCreateDatabaseSqlInstance()
+            def createDatabaseSqlInstance = getSqlInstance(project.database.url)
             executeCreateDatabaseSql(createDatabaseSqlInstance)
             createDatabaseSqlInstance.close()
         }
 
-        def sqlExecuteSqlInstance = getSqlExecuteSqlInstance()
+        def sqlExecuteSqlInstance = getSqlInstance(getSqlExecuteUrl())
         executeSqlFile(sqlExecuteSqlInstance)
         sqlExecuteSqlInstance.close()
     }
 
     def executeCreateDatabaseSql(sqlInstance) {
-        def dropDatabase = 'drop database ' + project.database.databaseName
-        def createDatabase = 'create database ' + project.database.databaseName
-
-        try {
-            println dropDatabase
-            sqlInstance.executeUpdate(dropDatabase)
-            println "'${dropDatabase}' execute success"
-        } catch (Exception e) {
-            println "'${dropDatabase}' execute failure"
-        }
-
-        try {
-            println createDatabase
-            sqlInstance.executeUpdate(createDatabase)
-            println "'${createDatabase}' execute success"
-        } catch (Exception e) {
-            println "'${createDatabase}' execute failure"
-        }
+        executeSql('drop database ' + project.database.databaseName, sqlInstance)
+        executeSql('create database ' + project.database.databaseName, sqlInstance)
     }
 
-    def getCreateDatabaseSqlInstance() {
-        getSqlInstance(project.database.url)
-    }
-
-    def getSqlExecuteSqlInstance() {
-        getSqlInstance(getSqlExecuteUrl())
+    def executeSql(sql, sqlInstance) {
+        try {
+            println "start '${sql}'"
+            sqlInstance.executeUpdate(sql)
+            println "'${sql}' execute success"
+        } catch (Exception e) {
+            println "'${sql}' execute failure"
+        }
     }
 
     def getSqlInstance(url) {
@@ -69,8 +56,7 @@ class CreateDatabaseTask extends DefaultTask {
 
     def executeSqlFile(sql) {
         project.database.sqlFiles.each {
-            File file ->
-                executeSqlStatement(file, sql)
+            File file -> executeSqlStatement(file, sql)
         }
     }
 
