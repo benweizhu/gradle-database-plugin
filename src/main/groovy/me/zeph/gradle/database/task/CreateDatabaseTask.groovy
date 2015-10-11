@@ -24,8 +24,8 @@ class CreateDatabaseTask extends DefaultTask {
     }
 
     def executeCreateDatabaseSql(sqlInstance) {
-        def dropDatabase = "drop database ${project.database.databaseName};"
-        def createDatabase = "create database ${project.database.databaseName};"
+        def dropDatabase = 'drop database ' + project.database.databaseName
+        def createDatabase = 'create database ' + project.database.databaseName
 
         try {
             println dropDatabase
