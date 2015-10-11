@@ -14,20 +14,57 @@ class CreateDatabaseTask extends DefaultTask {
     def createDatabase() {
         registerDriver(project.database.driver, project.database.configurationName)
 
-        def sql = getSqlInstance()
+        def createDatabaseSqlInstance = getCreateDatabaseSqlInstance()
+        executeCreateDatabaseSql(createDatabaseSqlInstance)
+        createDatabaseSqlInstance.close()
 
-        executeSqlFile(sql)
-
-        sql.close()
+        def sqlExecuteSqlInstance = getSqlExecuteSqlInstance()
+        executeSqlFile(sqlExecuteSqlInstance)
+        sqlExecuteSqlInstance.close()
     }
 
-    def getSqlInstance() {
-        def sql = Sql.newInstance(project.database.url,
-                project.database.username,
-                project.database.password,
-                project.database.driver)
-        println sql.connection.catalog
-        sql
+    def executeCreateDatabaseSql(sqlInstance) {
+        def dropDatabase = "drop database ${project.database.databaseName};"
+        def createDatabase = "create database ${project.database.databaseName};"
+
+        try {
+            println dropDatabase
+            sqlInstance.executeUpdate(dropDatabase)
+            println "'${dropDatabase}' execute success"
+        } catch (Exception e) {
+            println "'${dropDatabase}' execute failure"
+        }
+
+        try {
+            println createDatabase
+            sqlInstance.executeUpdate(createDatabase)
+            println "'${createDatabase}' execute success"
+        }catch (Exception e){
+            println "'${createDatabase}' execute failure"
+        }
+    }
+
+    def getCreateDatabaseSqlInstance() {
+        getSqlInstance(project.database.url)
+    }
+
+    def getSqlExecuteSqlInstance() {
+        getSqlInstance(getSqlExecuteUrl())
+    }
+
+    def getSqlInstance(url) {
+        def sqlInstance = Sql.newInstance(url, project.database.username,
+                project.database.password, project.database.driver)
+        println sqlInstance.connection.catalog
+        sqlInstance
+    }
+
+    def getSqlExecuteUrl() {
+        if (project.database.url.endsWith('/')) {
+            project.database.url + project.database.databaseName
+        } else {
+            project.database.url + '/' + project.database.databaseName
+        }
     }
 
     def executeSqlFile(sql) {
@@ -37,12 +74,12 @@ class CreateDatabaseTask extends DefaultTask {
         }
     }
 
-    def executeSqlStatement(File file, sql) {
+    def executeSqlStatement(File file, sqlInstance) {
         file.text.split(';').each {
             def sqlStatement = it.trim()
             if (!sqlStatement.isEmpty()) {
                 try {
-                    sql.execute(sqlStatement)
+                    sqlInstance.execute(sqlStatement)
                     println "'${sqlStatement}' execute success"
                 } catch (Exception e) {
                     println "'${sqlStatement}' execute failure"
@@ -50,7 +87,6 @@ class CreateDatabaseTask extends DefaultTask {
             }
         }
     }
-
 
     def registerDriver(driverName, configurationName) {
         URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader

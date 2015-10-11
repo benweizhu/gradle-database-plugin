@@ -8,4 +8,5 @@ class DatabasePluginExtension {
     def driver
     def sqlFiles
     def configurationName
+    def databaseName
 }
