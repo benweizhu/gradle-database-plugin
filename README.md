@@ -41,8 +41,39 @@ database {
 }
 ```
 
-###Version 0.0.2 is coming
+###Version 0.0.2 released
 Version 0.0.2 supports 'drop and create database your_database_name' on demand before execute sql file 
+
+```groovy
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'me.zeph:gradle-database-plugin:0.0.2'
+    }
+}
+
+apply plugin: 'me.zeph.database'
+
+configurations {
+    database
+}
+
+dependencies {
+    database 'mysql:mysql-connector-java:5.1.18'
+}
+
+database {
+    url = 'jdbc:mysql://localhost:3306/'
+    username = 'root'
+    password = ''
+    databaseName = 'your_database'
+    driver = 'com.mysql.jdbc.Driver'
+    configurationName = 'database'
+    sqlFiles = files('config/database/my_sql.sql')
+}
+```
 
 ###Sql file
 
