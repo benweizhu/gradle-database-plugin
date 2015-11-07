@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/benweizhu/gradle-plugin-database.svg?branch=master)](https://travis-ci.org/benweizhu/gradle-plugin-database)
 
+Version 0.0.2 is now available in JCenter.
+
 When dealing with the integration test, in most cases, you may need to interact with database, task like running sql statement could be very useful.
 
 What you see right now is a Gradle plugin which provides you a task to run SQL files in order.
@@ -74,6 +76,8 @@ database {
     sqlFiles = files('config/database/my_sql.sql')
 }
 ```
+
+**If you don't need this "create database" feature, you can just config it as version 0.0.1.**
 
 ###Sql file
 

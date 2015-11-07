@@ -1,0 +1,7 @@
+.gradle
+build
+out
+gradle-database-plugin.iml
+gradle-database-plugin.ipr
+gradle-database-plugin.iws
+libs
