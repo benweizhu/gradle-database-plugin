@@ -50,7 +50,7 @@ buildscript {
 apply plugin: 'maven-publish'
 
 group = 'me.zeph'
-version = '0.0.1'
+version = '0.0.3'
 
 task sourceJar(type: Jar) {
     from sourceSets.main.allJava
