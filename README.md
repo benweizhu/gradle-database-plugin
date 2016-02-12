@@ -20,7 +20,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'me.zeph:gradle-database-plugin:0.0.2'
+        classpath 'me.zeph:gradle-database-plugin:0.0.3'
     }
 }
 
