@@ -11,40 +11,8 @@ What you see right now is a Gradle plugin which provides you a task to run SQL f
 You can make your integrationTest depends on createDB task, so you can redeploy the database every time before integrationTest running. This gives you a chance to have a clean database environment.
 
 ###How to use
-###Version 0.0.1
 
-```groovy
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'me.zeph:gradle-database-plugin:0.0.1'
-    }
-}
-
-apply plugin: 'me.zeph.database'
-
-configurations {
-    database
-}
-
-dependencies {
-    database 'mysql:mysql-connector-java:5.1.18'
-}
-
-database {
-    url = 'jdbc:mysql://localhost:3306/your_database'
-    username = 'root'
-    password = ''
-    driver = 'com.mysql.jdbc.Driver'
-    configurationName = 'database'
-    sqlFiles = files('config/database/my_sql.sql')
-}
-```
-
-###Version 0.0.2 released
-Version 0.0.2 supports 'drop and create database your_database_name' on demand before execute sql file 
+###Version 0.0.3 released
 
 ```groovy
 buildscript {
@@ -74,10 +42,9 @@ database {
     driver = 'com.mysql.jdbc.Driver'
     configurationName = 'database'
     sqlFiles = files('config/database/my_sql.sql')
+    queryParameters = '?useUnicode=true&characterEncoding=UTF-8'
 }
 ```
-
-**If you don't need this "create database" feature, you can just config it as version 0.0.1.**
 
 ###Sql file
 
@@ -92,7 +59,10 @@ CREATE TABLE MY_TABLE (
 );
 ```
 
+###How to contribute?
 
-```groovy
-gradle createDB
-```
+./gradlew clean build // build jar
+
+./gradlew copyLibs // copy to lib folder for dependency
+
+./gradlew createDB // test

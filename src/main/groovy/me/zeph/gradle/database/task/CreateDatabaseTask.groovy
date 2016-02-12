@@ -47,10 +47,15 @@ class CreateDatabaseTask extends DefaultTask {
     }
 
     def getSqlExecuteUrl() {
+        def queryString = '';
+        if (project.database.queryParameters != null) {
+            queryString = project.database.queryParameters
+        }
+
         if (project.database.url.endsWith('/')) {
-            project.database.url + project.database.databaseName
+            project.database.url + project.database.databaseName + queryString
         } else {
-            project.database.url + '/' + project.database.databaseName
+            project.database.url + '/' + project.database.databaseName + queryString
         }
     }
 

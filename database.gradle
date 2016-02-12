@@ -9,13 +9,14 @@ dependencies {
 apply plugin: 'me.zeph.database'
 
 database {
-    url = 'jdbc:mysql://localhost:3306'
+    url = 'jdbc:mysql://localhost:3307'
     username = 'root'
     password = ''
     databaseName = 'testing'
     driver = 'com.mysql.jdbc.Driver'
     configurationName = 'database'
-    sqlFiles = files('config/database/drop_table.sql')
+    sqlFiles = files('config/database/create_table.sql','config/database/insert_table.sql')
+    queryParameters = '?useUnicode=true&characterEncoding=UTF-8'
 }
 
 task copyLibs(type: Copy) {

@@ -9,4 +9,5 @@ class DatabasePluginExtension {
     def sqlFiles
     def configurationName
     def databaseName
+    def queryParameters
 }
