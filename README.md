@@ -1,6 +1,6 @@
 # A Gradle plugin for sql execute
 
-[![Build Status](https://travis-ci.org/benweizhu/gradle-plugin-database.svg?branch=master)](https://travis-ci.org/benweizhu/gradle-plugin-database)
+[![Build Status](https://travis-ci.org/benweizhu/gradle-database-plugin.svg?branch=master)](https://travis-ci.org/benweizhu/gradle-database-plugin)
 
 **Version 0.0.3 is now available in JCenter.**
 
