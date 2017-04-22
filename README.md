@@ -10,9 +10,9 @@ What you see right now is a Gradle plugin which provides you a task to run SQL f
 
 You can make your integrationTest depends on createDB task, so you can redeploy the database every time before integrationTest running. This gives you a chance to have a clean database environment.
 
-###How to use
+### How to use
 
-###Version 0.0.3 released
+### Version 0.0.3 released
 
 ```groovy
 buildscript {
@@ -46,7 +46,7 @@ database {
 }
 ```
 
-###Sql file
+### Sql file
 
 my_sql.sql, use semicolon ';' to isolate each sql statement
 
@@ -59,10 +59,14 @@ CREATE TABLE MY_TABLE (
 );
 ```
 
-###How to contribute?
+### How to contribute?
 
+```sh
 ./gradlew clean build // build jar
 
 ./gradlew copyLibs // copy to lib folder for dependency
 
 ./gradlew createDB // test
+
+```
+
